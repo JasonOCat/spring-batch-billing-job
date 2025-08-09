@@ -1,12 +1,9 @@
 package com.jason.springbatchbillingjob;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.batch.core.ExitStatus;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,14 +23,15 @@ class SpringBatchBillingJobApplicationTests {
     @Test
     void testJobExecution(CapturedOutput output) throws Exception {
         // given
-        JobParameters jobParameters = new JobParameters();
-
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addString("input.file", "/some/input/file")
+                .addString("file.format", "csv", false)
+                .toJobParameters();
         // when
         JobExecution jobExecution = this.jobLauncher.run(this.job, jobParameters);
-
         // then
-        Assertions.assertThat(output.getOut()).contains("processing billing information");
-        Assertions.assertThat(ExitStatus.COMPLETED).isEqualTo(jobExecution.getExitStatus());
+        Assertions.assertTrue(output.getOut().contains("processing billing information from file /some/input/file"));
+        Assertions.assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
     }
 
 }
