@@ -90,8 +90,12 @@ public class BillingJobConfiguration {
     }
 
     @Bean
-    public JdbcCursorItemReader<BillingData> billingDataTableReader(DataSource dataSource) {
-        String sql = "select * from BILLING_DATA";
+    @StepScope
+    public JdbcCursorItemReader<BillingData> billingDataTableReader(
+            DataSource dataSource,
+            @Value("#{jobParameters['data.year']}") Integer year,
+            @Value("#{jobParameters['data.month']}") Integer month) {
+        String sql = String.format("select * from BILLING_DATA where DATA_YEAR = %d and DATA_MONTH = %d", year, month);
         return new JdbcCursorItemReaderBuilder<BillingData>()
                 .name("billingDataTableReader")
                 .dataSource(dataSource)
