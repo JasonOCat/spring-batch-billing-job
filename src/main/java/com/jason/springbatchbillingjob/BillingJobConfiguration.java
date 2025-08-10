@@ -108,7 +108,7 @@ public class BillingJobConfiguration {
                 .resource(new FileSystemResource("staging/billing-report-2025-01.csv"))
                 .name("billingDataFileWriter")
                 .delimited()
-                .names("billingData.dataYear", "billingDa   ta.dataMonth", "billingData.accountId", "billingData.phoneNumber", "billingData.dataUsage", "billingData.callDuration", "billingData.smsCount", "billingTotal")
+                .names("billingData.dataYear", "billingData.dataMonth", "billingData.accountId", "billingData.phoneNumber", "billingData.dataUsage", "billingData.callDuration", "billingData.smsCount", "billingTotal")
                 .build();
     }
 
