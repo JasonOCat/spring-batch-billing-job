@@ -24,10 +24,12 @@ public class BillingJobConfiguration {
     @Bean
     public Job job(
             JobRepository jobRepository,
-            Step step1
+            Step step1,
+            Step step2
     ) {
         return new JobBuilder("BillingJob", jobRepository)
                 .start(step1)
+                .next(step2)
                 .build();
     }
 
