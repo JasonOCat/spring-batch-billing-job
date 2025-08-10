@@ -5,6 +5,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -30,11 +31,13 @@ public class BillingJobConfiguration {
     public Job job(
             JobRepository jobRepository,
             Step step1,
-            Step step2
+            Step step2,
+            Step step3
     ) {
         return new JobBuilder("BillingJob", jobRepository)
                 .start(step1)
                 .next(step2)
+                .next(step3)
                 .build();
     }
 
@@ -106,6 +109,19 @@ public class BillingJobConfiguration {
                 .name("billingDataFileWriter")
                 .delimited()
                 .names("billingData.dataYear", "billingDa   ta.dataMonth", "billingData.accountId", "billingData.phoneNumber", "billingData.dataUsage", "billingData.callDuration", "billingData.smsCount", "billingTotal")
+                .build();
+    }
+
+    @Bean
+    public Step step3(JobRepository jobRepository, JdbcTransactionManager transactionManager,
+                      ItemReader<BillingData> billingDataTableReader,
+                      ItemProcessor<BillingData, ReportingData> billingDataProcessor,
+                      ItemWriter<ReportingData> billingDataFileWriter) {
+        return new StepBuilder("reportGeneration", jobRepository)
+                .<BillingData, ReportingData>chunk(100, transactionManager)
+                .reader(billingDataTableReader)
+                .processor(billingDataProcessor)
+                .writer(billingDataFileWriter)
                 .build();
     }
 }
