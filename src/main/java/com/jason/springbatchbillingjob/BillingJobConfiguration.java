@@ -110,9 +110,11 @@ public class BillingJobConfiguration {
     }
 
     @Bean
-    public FlatFileItemWriter<ReportingData> billingDataFileWriter() {
+    @StepScope
+    public FlatFileItemWriter<ReportingData> billingDataFileWriter(
+            @Value("#{jobParameters['output.file']}") String outputFile) {
         return new FlatFileItemWriterBuilder<ReportingData>()
-                .resource(new FileSystemResource("staging/billing-report-2025-01.csv"))
+                .resource(new FileSystemResource(outputFile))
                 .name("billingDataFileWriter")
                 .delimited()
                 .names("billingData.dataYear", "billingData.dataMonth", "billingData.accountId", "billingData.phoneNumber", "billingData.dataUsage", "billingData.callDuration", "billingData.smsCount", "billingTotal")
