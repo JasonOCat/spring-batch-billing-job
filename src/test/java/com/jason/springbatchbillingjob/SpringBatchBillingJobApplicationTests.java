@@ -42,7 +42,10 @@ class SpringBatchBillingJobApplicationTests {
     void testJobExecution() throws Exception {
         // given
         JobParameters jobParameters = new JobParametersBuilder()
-                .addString("input.file", "src/main/resources/billing-2025-01.csv")
+                .addString("input.file", "input/billing-2025-01.csv")
+                .addString("output.file", "staging/billing-report-2025-01.csv")
+                .addJobParameter("data.year", 2025, Integer.class)
+                .addJobParameter("data.month", 1, Integer.class)
                 .toJobParameters();
 
         // when
