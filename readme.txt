@@ -22,3 +22,6 @@ java -jar target/spring-batch-billing-job-0.0.1-SNAPSHOT.jar input.file=input/bi
 To check job executions :
 select job_instance_id, job_execution_id, status from BATCH_JOB_EXECUTION;
 select step_execution_id, job_execution_id, step_name, status, read_count, write_count, commit_count, rollback_count  from BATCH_STEP_EXECUTION;
+
+To launch the job with skip file:
+java -jar target/spring-batch-billing-job-0.0.1-SNAPSHOT.jar input.file=input/billing-2025-03.csv output.file=staging/billing-report-2025-03.csv skip.file=staging/billing-data-skip-2025-03.psv data.year=2025 data.month=3
