@@ -111,8 +111,8 @@ public class BillingJobConfiguration {
     }
 
     @Bean
-    public BillingDataProcessor billingDataProcessor() {
-        return new BillingDataProcessor();
+    public BillingDataProcessor billingDataProcessor(PricingService pricingService) {
+        return new BillingDataProcessor(pricingService);
     }
 
     @Bean
