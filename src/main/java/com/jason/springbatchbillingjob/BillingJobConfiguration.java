@@ -87,11 +87,11 @@ public class BillingJobConfiguration {
         return new StepBuilder("fileIngestion", jobRepository)
                 .<BillingData, BillingData>chunk(100, transactionManager)
                 .reader(billingDataFileReader)
+                .writer(billingDataTableWriter)
                 .faultTolerant()
                 .skip(FlatFileParseException.class)
                 .skipLimit(10)
                 .listener(skipListener)
-                .writer(billingDataTableWriter)
                 .build();
     }
 
