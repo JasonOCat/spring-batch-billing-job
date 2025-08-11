@@ -25,3 +25,6 @@ select step_execution_id, job_execution_id, step_name, status, read_count, write
 
 To launch the job with skip file:
 java -jar target/spring-batch-billing-job-0.0.1-SNAPSHOT.jar input.file=input/billing-2025-03.csv output.file=staging/billing-report-2025-03.csv skip.file=staging/billing-data-skip-2025-03.psv data.year=2025 data.month=3
+
+To test retry:
+java -jar target/spring-batch-billing-job-0.0.1-SNAPSHOT.jar input.file=input/billing-2025-04.csv output.file=staging/billing-report-2025-04.csv skip.file=staging/billing-data-skip-2025-04.psv data.year=2023 data.month=4
