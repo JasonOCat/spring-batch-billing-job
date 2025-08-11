@@ -145,4 +145,9 @@ public class BillingJobConfiguration {
     public BillingDataSkipListener skipListener(@Value("#{jobParameters['skip.file']}") String skippedFile) {
         return new BillingDataSkipListener(skippedFile);
     }
+
+    @Bean
+    public PricingService pricingService() {
+        return new PricingService();
+    }
 }
