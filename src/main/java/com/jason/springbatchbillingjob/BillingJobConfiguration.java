@@ -133,4 +133,10 @@ public class BillingJobConfiguration {
                 .writer(billingDataFileWriter)
                 .build();
     }
+
+    @Bean
+    @StepScope
+    public BillingDataSkipListener skipListener(@Value("#{jobParameters['skip.file']}") String skippedFile) {
+        return new BillingDataSkipListener(skippedFile);
+    }
 }
