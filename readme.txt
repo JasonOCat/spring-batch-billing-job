@@ -7,7 +7,7 @@ to clean database:
 scripts/drop-create-database.sh
 
 to connect to databse:
-docker exec -it postgres_postgres_billing_job_db psql -U postgres
+docker exec -it postgres_billing_job_db psql -U postgres
 
 to see spring batch table:
 select * from BATCH_JOB_EXECUTION;

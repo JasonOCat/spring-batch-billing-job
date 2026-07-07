@@ -1,9 +1,9 @@
 services:
   postgres:
     image: postgres:17-alpine
-    container_name: postgres_postgres_billing_job_db
+    container_name: postgres_billing_job_db
     environment:
-      POSTGRES_DB: postgres_postgres_billing_job_db
+      POSTGRES_DB: postgres_billing_job_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
