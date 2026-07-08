@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Staging (generated job artifacts) ###
+staging/*
+!staging/readme.txt
