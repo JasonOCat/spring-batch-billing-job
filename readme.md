@@ -1,5 +1,18 @@
 # 🚀 Spring Batch Billing Job - Cheat Sheet
 
+## 🛠️ Configuration & Compilation du Projet
+
+### Lancer l'environnement Docker (Base de données PostgreSQL)
+Avant de lancer vos jobs ou d'exécuter des scripts sur la base de données, assurez-vous que le conteneur PostgreSQL est démarré :
+```bash
+docker compose up -d
+```
+
+### Compilation de l'application
+Compilez l'application en sautant les tests unitaires :
+```bash
+./mvnw clean package -Dmaven.test.skip=true
+```
 
 ## 🗄️ Gestion de la Base de Données
 
