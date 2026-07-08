@@ -26,9 +26,13 @@ import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.support.JdbcTransactionManager;
 
 import javax.sql.DataSource;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Configuration
 public class BillingJobConfiguration {
+
+    public static final String STAGING = "staging";
 
     @Bean
     public Job job(
@@ -57,9 +61,13 @@ public class BillingJobConfiguration {
     @Bean
     @StepScope
     public FlatFileItemReader<BillingData> billingDataFileReader(@Value("#{jobParameters['input.file']}") String inputFile) {
+        // we use the copy of the input file in the staging directory
+        Path inputFileName = Path.of(inputFile).getFileName();
+        Path stagingInputFileName = Paths.get(STAGING).resolve(inputFileName);
+
         return new FlatFileItemReaderBuilder<BillingData>()
                 .name("billingDataFileReader")
-                .resource(new FileSystemResource(inputFile))
+                .resource(new FileSystemResource(stagingInputFileName))
                 .delimited()
                 .names("dataYear", "dataMonth", "accountId", "phoneNumber", "dataUsage", "callDuration", "smsCount")
                 .targetType(BillingData.class)
