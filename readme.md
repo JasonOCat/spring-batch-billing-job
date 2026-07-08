@@ -9,6 +9,25 @@ Ce projet est une application robuste de traitement par lots (**Batch Processing
 
 ---
 
+## 🏗️ Architecture du pipeline
+
+Le job `BillingJob` enchaîne **3 steps** :
+
+```mermaid
+flowchart LR
+    A[input/*.csv] -->|Step 1: filePreparation| B[staging/*.csv]
+    B -->|Step 2: fileIngestion| C[(BILLING_DATA PostgreSQL)]
+    C -->|Step 3: reportGeneration| D[staging/billing-report-*.csv]
+```
+
+| Step | Nom | Rôle |
+|------|-----|------|
+| 1 | `filePreparation` | Copie le fichier d'entrée vers `staging/` |
+| 2 | `fileIngestion` | Lit le CSV, insère en base (chunks de 100) |
+| 3 | `reportGeneration` | Lit la base, calcule le total, écrit le rapport |
+
+---
+
 ## 🛠️ Configuration & Compilation du Projet
 
 ### Lancer l'environnement Docker (Base de données PostgreSQL)
