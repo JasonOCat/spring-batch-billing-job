@@ -1,4 +1,13 @@
-# 🚀 Spring Batch Billing Job - Cheat Sheet
+# 💳 Spring Batch Billing Job
+
+Ce projet est une application robuste de traitement par lots (**Batch Processing**) développée avec **Spring Batch** et **Spring Boot**. Elle automatise l'ingestion, la validation et le traitement de fichiers de facturation mensuels afin de générer des rapports financiers standardisés.
+
+### 🌟 Fonctionnalités Clés
+* **Liaison Tardive (Late Binding) :** Utilisation des annotations `@StepScope` et de SpEL pour traiter dynamiquement des fichiers d'entrée et de sortie variables, sans figer les configurations au démarrage de l'application.
+* **Résilience & Gestion des Erreurs :** Implémentation de politiques de **Skip** (isolation des lignes corrompues dans des fichiers dédiés) et de **Retry** (relance automatique des opérations en cas d'erreur transitoire).
+* **Traçabilité des Traitements :** Persistance complète du cycle de vie des jobs et de l'état des steps (compteurs de lectures, écritures, commits et rollbacks) dans une base de données **PostgreSQL**.
+
+---
 
 ## 🛠️ Configuration & Compilation du Projet
 
