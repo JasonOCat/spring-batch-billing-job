@@ -98,7 +98,7 @@ java -jar target/spring-batch-billing-job-0.0.1-SNAPSHOT.jar \
   input.file=input/billing-2025-04.csv \
   output.file=staging/billing-report-2025-04.csv \
   skip.file=staging/billing-data-skip-2025-04.psv \
-  data.year=2023 data.month=4
+  data.year=2025 data.month=4
 ```
 
 ## 🔍 Suivi et Requêtes SQL (Métadonnées Batch)
